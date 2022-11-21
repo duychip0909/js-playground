@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    transition: all .7s ease-in-out;
+}
+
+#wrapper {
+    width: 300px;
+    height: 100%;
+    padding: 20px;
+    margin-left: -250px;
+    white-space: nowrap;
+    position: fixed;
+    overflow: hidden;
+    background: #111;
+    top: 0;
+    left: 0;
+    transition: all .7s ease-in-out;
+}
+
+#exit {
+    color: #fff;
+    font-size: 40px;
+    position: absolute;
+    inset: 0 15px auto auto;
+    cursor: pointer;
+}
+
+#offcanvas {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    background: #111;
+}
+
+.btn-open {
+    border-radius: 10px;
+    background: purple;
+    padding: 5px;
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.1;
+}
+
+.btn-open:hover {
+    background: rgb(87, 0, 87);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin: 20px 0 0 20px;
+    cursor: pointer;
+}
+
+.nav-item:hover a {
+    color: rgb(255, 200, 133);
+}
+
+a {
+    text-decoration: none;
+    color: #ededed;
+    font-size: 20px;
+    font-weight: 700;
+    transition: all .2s ease-in-out;
+}
+
+.open {
+    margin-left: 0 !important;
+}
+.darker {
+    background: rgba(17, 17, 17, 0.4) !important;
+}
