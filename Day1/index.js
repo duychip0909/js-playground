@@ -1,19 +1,12 @@
-const btnOpen = document.getElementById("button");
+const btnOpen = document.getElementById("exit");
 const canvas = document.getElementById("wrapper");
 
-document.addEventListener('DOMContentLoaded', function(e) {
-    document.getElementById("exit").addEventListener("click", openCanvas);
-    document.querySelector("body").onclick = closeCanvas;
-})
-
-function openCanvas() {
-    document.getElementById("wrapper").classList.add('open');
-    document.querySelector("body").style.marginLeft = "250px";
-    document.querySelector("body").classList.add("darker");
+if (btnOpen !== null) {
+    btnOpen.onclick = openCanvas;
+    btnOpen.onclick = closeCanvas;
 }
 
-function closeCanvas() {
-    canvas.classList.remove("open");
-    document.querySelector("body").classList.remove("darker");
-    document.querySelector("body").style.marginLeft = "0px";
+function openCanvas() {
+    document.getElementById("wrapper").classList.toggle('open');
+    document.querySelector("body").classList.toggle("active");
 }

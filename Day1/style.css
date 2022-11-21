@@ -5,6 +5,7 @@
 body {
     margin: 0;
     transition: all .7s ease-in-out;
+    overflow: hidden;
 }
 
 #wrapper {
@@ -33,7 +34,7 @@ body {
     width: 100%;
     position: relative;
     height: 100%;
-    background: #111;
+    margin-left: 60px;
 }
 
 .btn-open {
@@ -79,6 +80,7 @@ a {
 .open {
     margin-left: 0 !important;
 }
-.darker {
+.active {
+    margin-left: 250px;
     background: rgba(17, 17, 17, 0.4) !important;
 }
