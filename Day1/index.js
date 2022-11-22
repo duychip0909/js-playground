@@ -3,7 +3,6 @@ const canvas = document.getElementById("wrapper");
 
 if (btnOpen !== null) {
     btnOpen.onclick = openCanvas;
-    btnOpen.onclick = closeCanvas;
 }
 
 function openCanvas() {
