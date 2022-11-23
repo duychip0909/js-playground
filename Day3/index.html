@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+	<link rel="stylesheet" href="./style.css" />
+	<title>Document</title>
+</head>
+
+<body>
+	<div class="container">
+		<div class="inner d-flex">
+			<div class="picsList">
+				<div class="pic">
+					<img src="https://images.unsplash.com/photo-1669135481800-7b7382c6e9dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1421&q=80"
+						alt="" />
+				</div>
+				<div class="pic">
+					<img src="https://images.unsplash.com/photo-1669046638627-4836eb278767?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+						alt="" />
+				</div>
+				<div class="pic">
+					<img src="https://images.unsplash.com/photo-1669058611053-ff24fb0f1c33?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"
+						alt="" />
+				</div>
+			</div>
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">123</div>
+					<div class="swiper-slide">456</div>
+					<div class="swiper-slide">789</div>
+				</div>
+				<div class="swiper-pagination news">
+					<span class="swiper-pagination-bullet">01</span>
+					<span class="swiper-pagination-bullet">02</span>
+					<span class="swiper-pagination-bullet">03</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.js"
+		integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+	<script>
+		var swiper = new Swiper(".mySwiper", {
+			pagination: {
+				el: ".swiper-pagination",
+				renderBullet: function (index, className) {
+					console.log("slide changed")
+					var index = (index + 1)
+					if (index < 10) {
+						index = '0' + index
+					}
+					return '<span class="' + className + '">' + index + '</span>';
+		},
+			},
+			loop: true,
+			autoplay: {
+				delay: 4000,
+				disableOnInteraction: false
+			},
+			on: {
+				slideChange: function (swiper) {
+					console.log("swiper initialized");
+					var index = swiper.realIndex;
+					var newspic = $(".picsList .pic");
+					newspic.eq(index).addClass("on").siblings(".pic").removeClass("on");
+					if (index == newspic.length - 1) {
+						newspic
+							.eq(0)
+							.addClass("next")
+							.siblings(".pic")
+							.removeClass("next");
+					} else {
+						newspic
+							.eq(index + 1)
+							.addClass("next")
+							.siblings(".pic")
+							.removeClass("next");
+					}
+					
+				},
+			},
+		});
+
+      // swiper.on('slideChange', function (swiper) {
+      //     console.log('slide changed');
+      //     var index = swiper.realIndex;
+      //     var newspic = $(".picsList .pic");
+      //     newspic.eq(index).addClass('on').siblings('.pic').removeClass('on');
+      //     if (index == newspic.length-1){
+      // 		newspic.eq(0).addClass('next').siblings('.pic').removeClass('next')
+      // 	} else {
+      // 		newspic.eq(index+1).addClass('next').siblings('.pic').removeClass('next')
+      // 	}
+      // });
+	</script>
+</body>
+
+</html>

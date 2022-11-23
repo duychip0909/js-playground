@@ -1,7 +1,7 @@
 const xhr = new XMLHttpRequest();
 const listProvince = document.getElementById("listProvince");
 const listCity = document.getElementById("listCity");
-xhr.open("GET", "https://provinces.open-api.vn/api/?depth=2");
+xhr.open("GET", "https://api.openweathermap.org/data/2.5/weather?lat=21.02895857253441&lon=105.83048504135478&appid=65e6acbd89514013ffb82d788984105c");
 
 xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {

@@ -1,0 +1,87 @@
+.mySwiper {
+    width: 500px;
+    height: 300px;
+    border: 1px solid red;
+}
+
+.picsList {
+    position: relative;
+    width: 868px;
+    height: 510px;
+    flex-shrink: 0;
+}
+
+.pic {
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+    width: 868px;
+    height: 510px;
+    transition: opacity 1s, transform 1s;
+    transform: translate(60px, 50px);
+    border-radius: 4px;
+}
+
+.pic::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgba(33, 33, 33, 0.5);
+    position: absolute;
+    inset: 0 auto auto 0;
+    opacity: 1;
+    transition: all 1s;
+}
+
+.pic.on {
+    z-index: 3;
+    transform: translate(0, 0);
+    opacity: 1 !important;
+}
+
+.pic.next {
+    opacity: 1;
+    z-index: 2;
+}
+
+.pic.on::after {
+    opacity: 0;
+}
+
+img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.container {
+    max-width: 1644px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.inner {
+    align-items: center;
+}
+
+.swiper-pagination.news {
+    width: auto;
+    inset: 50% 0 auto auto;
+    transform: rotate(90deg) translateY(-300%);
+}
+
+.swiper-pagination.news .swiper-pagination-bullet {
+    margin: 0 22px;
+    background: #878787;
+    font-size: 14px;
+    width: 10px;
+    height: 10px;
+}
+
+.swiper-pagination.news .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: #C50D27;
+}
