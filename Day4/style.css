@@ -16,7 +16,7 @@ body {
     border: 3px solid #157EAD;
     margin: 400px auto 0;
     position: relative;
-    animation: spin 20s ease-in-out infinite;
+    animation: spin 60s ease-in-out infinite;
 }
 
 .outer-circle {
@@ -44,7 +44,7 @@ body {
     position: absolute;
     inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
-    animation: reverse-spin 20s ease-in-out infinite;
+    animation: reverse-spin 60s ease-in-out infinite;
 }
 
 .quater-cicle {
@@ -61,7 +61,7 @@ body {
     position: absolute;
     inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
-    animation: reverse-spin 20s ease-in-out infinite;
+    animation: reverse-spin 60s ease-in-out infinite;
 }
 
 .quater-cicle::after {
@@ -126,7 +126,7 @@ body {
     position: absolute;
     inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
-    animation: reverse-spin 20s ease-in-out infinite;
+    animation: reverse-spin 60s ease-in-out infinite;
 }
 
 .branch-circle-1 {
@@ -328,17 +328,17 @@ body {
     transform: translate(-100%, 50%);
 }
 
-.treetop-circle::before {
+.treetop-circle-2::before {
     content: '';
     position: absolute;
     width: 52px;
     height: 2px;
     background: #909090;
-    inset: 15px 8px auto auto;
+    inset: 50% auto auto 0;
     transform: translate(100%, -50%) rotate(155deg);
 }
 
-.treetop-circle::after {
+.treetop-circle-3::after {
     content: '';
     position: absolute;
     width: 90px;
@@ -350,22 +350,90 @@ body {
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* @keyframes reverse-spin {
-    from {
+@keyframes reverse-spin {
+    0% {
         transform: translate(-50%, -50%) rotate(0deg);
     }
-    to {
+    50% {
+        transform: translate(-50%, -50%) rotate(-180deg);
+    }
+    70% {
+        transform: translate(-50%, -50%) rotate(-270deg);
+    }
+    100% {
         transform: translate(-50%, -50%) rotate(-360deg);
     }
 }
 
 @keyframes spin {
-    from {
+    0% {
         transform: rotate(0deg);
     }
-    to {
+    50% {
+        transform: rotate(180deg);
+    }
+    70% {
+        transform: rotate(270deg);
+    }
+    100% {
         transform: rotate(360deg);
     }
-} */
+}
+
+.pulse {
+    border-radius: 50%;
+    border: 1px solid #ededed;
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pulse-1 {
+    width: 578px;
+    height: 578px;
+    animation: pulse1 8s linear infinite;
+}
+
+.pulse-2 {
+    width: 823px;
+    height: 823px;
+    animation: pulse2 4s linear infinite;
+}
+
+@keyframes pulse1 {
+    0% {
+        opacity: 0;
+        width: 578px;
+        height: 578px;
+    }
+    50% {
+        opacity: 1;
+        width: 1050px;
+        height: 1050px;
+    }
+    100% {
+        opacity: 1;
+        width: 1050px;
+        height: 1050px;
+    }
+}
+
+@keyframes pulse2 {
+    0% {
+        opacity: 0;
+        width: 578px;
+        height: 578px;
+    }
+    30% {
+        opacity: 1;
+        width: 823px;
+        height: 823px;
+    }
+    100% {
+        opacity: 1;
+        width: 823px;
+        height: 823px;
+    }
+}
 
 
