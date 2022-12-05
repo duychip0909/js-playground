@@ -1,0 +1,13 @@
+input, label {
+    display: block;
+}
+
+input {
+    margin: 5px auto 15px;
+    border-radius: 10px;
+    outline: 0;
+    border: 1px solid #ededed;
+    padding: 5px 15px;
+    color: #505050;
+}
+
