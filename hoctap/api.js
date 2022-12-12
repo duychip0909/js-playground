@@ -32,7 +32,7 @@ btnSubmit.addEventListener("click", function(event) {
     xhr.open(
         "POST", "https://music-i-like.herokuapp.com/api/v1/songs"
     );
-    xhr.setRequestHeader("Access-Control-Allow-Origin", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(song));
     return false;
 });

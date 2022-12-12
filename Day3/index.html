@@ -50,7 +50,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.js"
 		integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 	<script>
-		var swiper = new Swiper(".mySwiper", {
+		var swiper = new Swiper(".mySwiper", {			
 			pagination: {
 				el: ".swiper-pagination",
 				renderBullet: function (index, className) {
@@ -61,6 +61,7 @@
 					}
 					return '<span class="' + className + '">' + index + '</span>';
 		},
+		clickable: true
 			},
 			loop: true,
 			autoplay: {
