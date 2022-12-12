@@ -2,12 +2,10 @@ const xhr = new XMLHttpRequest();
 const listProvince = document.getElementById("listProvince");
 const listCity = document.getElementById("listCity");
 const provinceList = document.getElementById("pList");
-// xhr.open("GET", "https://provinces.open-api.vn/api/?depth=3");
-fetch('https://provinces.open-api.vn/api/?depth=3')
-  .then((response) => response.json())
-  .then((data) => console.log( "2131232131",data));
+const districtsList = document.querySelectorAll(".city");
+xhr.open("GET", "https://provinces.open-api.vn/api/?depth=3");
 
-xhr.onreadystatechange = function() {
+xhr.onreadystatechange = function getList() {
     if (xhr.readyState === 4) {
         if (xhr.status === 200) {
             console.log("Request success!");
@@ -16,9 +14,8 @@ xhr.onreadystatechange = function() {
             let htmlCity = "";
             let htmlProvince = "";
             for (let index = 0; index < listObject.length; index++) {
-                const data = listObject[index];
-                htmlCity += `<tr><td>${(data.codename)}</td><td>${(element.code)}</td></tr>`;
-
+                const element = listObject[index];
+                htmlCity += `<a href="javascript:;" onclick="getD()" class="city">${(element.name)}</a>`;
             }
             console.log(htmlCity);
             provinceList.innerHTML = htmlCity
@@ -29,3 +26,9 @@ xhr.onreadystatechange = function() {
     }
 };
 xhr.send();
+
+function getD() {
+    getList();
+}
+
+
