@@ -32,51 +32,47 @@ xhr.onreadystatechange = function getList() {
 };
 xhr.send();
 
-function changing() {
-    console.log(document.querySelector('input[name="pList"]').value);
-}
-
 function buildCityDropdown(cities) {
-    document.querySelector('#pList').innerHTML = cities.map(city => `
+    provinceList.innerHTML = cities.map((city) => `
         <option data-city="${city.code}" value="${city.name}">${city.name}</option>
-    `).join('');
+    `);
 }
 
 function buildDistricts(districts) {
-    districtList.innerHTML = districts.map(district => `
+    districtList.innerHTML = districts.map((district) => `
         <option data-code="${district.code}" value="${(district.name)}">
             ${(district.name)}
         </option>
-    `).join('');
+    `);
 }
 
 function buildWardsDropdown(wards) {
     document.querySelector('#wardList').innerHTML = wards
-        .map(ward => `<option value="${(ward.name)}">${(ward.name)}</option>`)
-        .join('');
+        .map((ward) => `<option value="${(ward.name)}">${(ward.name)}</option>`);
 }
 
-function getData() {
-    console.log("hello")
-    let detailAddress = document.getElementById("detailAddress").value;
-    let city = document.querySelector('input[name="pList"]').value;
-    let district = document.querySelector('input[name="districtList"]').value;
-    let ward = document.querySelector('input[name="wardList"]').value;
-    if (city == "" || district == "" || ward == "") {
-        alert('bạn chưa nhập đủ thông tin')
-    } else {
-        document.getElementById("address").innerHTML = city + ',';
-    }
-    document.getElementById("detailAddress-res").innerHTML = detailAddress + ',';
-    document.getElementById("district").innerHTML = district + ',';
-    document.getElementById("ward").innerHTML = ward + '.';
-}
+// function getData() {
+//     console.log("hello")
+//     let detailAddress = document.getElementById("detailAddress").value;
+//     let city = document.querySelector('input[name="pList"]').value;
+//     let district = document.querySelector('input[name="districtList"]').value;
+//     let ward = document.querySelector('input[name="wardList"]').value;
+//     if (city == "" || district == "" || ward == "") {
+//         alert('bạn chưa nhập đủ thông tin')
+//     } else {
+//         document.getElementById("address").innerHTML = city + ',';
+//     }
+//     document.getElementById("detailAddress-res").innerHTML = detailAddress + ',';
+//     document.getElementById("district").innerHTML = district + ',';
+//     document.getElementById("ward").innerHTML = ward + '.';
+// }
 
 
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('input[name="city"]').addEventListener('change', function (e) {
         var value = e.currentTarget.value;
         var selectedCode = document.querySelector(`#pList option[value="${value}"]`).dataset.city;
+        console.log(selectedCode)
         districtList.innerHTML = '';
         districtInput.value = '';
 
