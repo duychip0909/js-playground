@@ -1,8 +1,11 @@
 const xhr = new XMLHttpRequest();
-const listProvince = document.getElementById("listProvince");
-const listCity = document.getElementById("listCity");
 const provinceList = document.getElementById("pList");
-const districtsList = document.querySelectorAll(".city");
+const districtList = document.getElementById("districtList");
+const districtInput = document.querySelector('input[name="districtList"]');
+const wardList = document.getElementById("wardList");
+const districts = {};
+const wards = {};
+
 xhr.open("GET", "https://provinces.open-api.vn/api/?depth=3");
 
 xhr.onreadystatechange = function getList() {
@@ -11,15 +14,17 @@ xhr.onreadystatechange = function getList() {
             console.log("Request success!");
             let listObject = JSON.parse(xhr.responseText);
             console.log(listObject);
-            let htmlCity = "";
-            let htmlProvince = "";
-            for (let index = 0; index < listObject.length; index++) {
-                const element = listObject[index];
-                htmlCity += `<a href="javascript:;" onclick="getD()" class="city">${(element.name)}</a>`;
+            for (let i in listObject) {
+                const city = listObject[i];
+
+                districts[city.code] = city.districts;
+                for (let j in listObject[i].districts) {
+                    const district = listObject[i].districts[j];
+                    wards[district.code] = district.wards
+                }
             }
-            console.log(htmlCity);
-            provinceList.innerHTML = htmlCity
-            // listProvince.innerHTML = htmlProvince;
+
+            buildCityDropdown(listObject);
         } else {
             console.log("Request fails!");
         }
@@ -27,8 +32,67 @@ xhr.onreadystatechange = function getList() {
 };
 xhr.send();
 
-function getD() {
-    getList();
+function changing() {
+    console.log(document.querySelector('input[name="pList"]').value);
+}
+
+function buildCityDropdown(cities) {
+    document.querySelector('#pList').innerHTML = cities.map(city => `
+        <option data-city="${city.code}" value="${city.name}">${city.name}</option>
+    `).join('');
+}
+
+function buildDistricts(districts) {
+    districtList.innerHTML = districts.map(district => `
+        <option data-code="${district.code}" value="${(district.name)}">
+            ${(district.name)}
+        </option>
+    `).join('');
+}
+
+function buildWardsDropdown(wards) {
+    document.querySelector('#wardList').innerHTML = wards
+        .map(ward => `<option value="${(ward.name)}">${(ward.name)}</option>`)
+        .join('');
+}
+
+function getData() {
+    console.log("hello")
+    let detailAddress = document.getElementById("detailAddress").value;
+    let city = document.querySelector('input[name="pList"]').value;
+    let district = document.querySelector('input[name="districtList"]').value;
+    let ward = document.querySelector('input[name="wardList"]').value;
+    if (city == "" || district == "" || ward == "") {
+        alert('bạn chưa nhập đủ thông tin')
+    } else {
+        document.getElementById("address").innerHTML = city + ',';
+    }
+    document.getElementById("detailAddress-res").innerHTML = detailAddress + ',';
+    document.getElementById("district").innerHTML = district + ',';
+    document.getElementById("ward").innerHTML = ward + '.';
 }
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('input[name="city"]').addEventListener('change', function (e) {
+        var value = e.currentTarget.value;
+        var selectedCode = document.querySelector(`#pList option[value="${value}"]`).dataset.city;
+        districtList.innerHTML = '';
+        districtInput.value = '';
+
+        if (districts[selectedCode]) {
+            buildDistricts(districts[selectedCode]);
+        }
+    });
+
+    districtInput.addEventListener('change', function (e) {
+        var value = e.currentTarget.value;
+        var selectedCode = document.querySelector(`#districtList option[value="${value}"]`).dataset.code;
+
+        console.log(wards[selectedCode]);
+
+        if (wards[selectedCode]) {
+            buildWardsDropdown(wards[selectedCode]);
+        }
+    });
+});

@@ -9,8 +9,37 @@
 </head>
 <body>
     <h1>This is the first call API</h1>
-    <!-- <ul id="pList"></ul> -->
-    <div id="pList">
+    <div class="wrapper">
+        <div class="gradient-border">
+            <div class="box">
+                <label>Detail address:</label>
+                <textarea name="detailAddress" id="detailAddress" cols="25" rows="5"></textarea>
+            
+                <label>Provinces/Cities: </label>
+                <input list="pList" name="city">
+                <datalist id="pList">
+                    <option value=""></option>
+                </datalist>
+                <label>District: </label>
+                <input list="districtList" name="districtList">
+                <datalist id="districtList">
+                    <option value=""></option>
+                </datalist>
+            
+                <label>Ward: </label>
+                <input list="wardList" name="wardList">
+                <datalist id="wardList">
+                </datalist>
+                <button class="button-85" onclick="getData()" role="button">Button 85</button>
+            </div>
+        </div>
+        <div class="address">
+            <span>Địa chỉ:</span>
+            <span id="detailAddress-res"></span>
+            <span id="address"></span>
+            <span id="district"></span>
+            <span id="ward"></span>
+        </div>
     </div>
 
 
