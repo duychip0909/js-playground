@@ -25,6 +25,11 @@ xhr.onreadystatechange = function getList() {
             }
 
             buildCityDropdown(listObject);
+            document.querySelector('input[name="city"]').addEventListener('click', function (e) {
+                e.currentTarget.value = '';  
+                document.querySelector('input[name="districtList"]').value = '';
+                document.querySelector('input[name="wardList"]').value = '';
+            })
         } else {
             console.log("Request fails!");
         }
