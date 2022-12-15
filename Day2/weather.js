@@ -1,76 +1,112 @@
-const xhrWeather = new XMLHttpRequest();
-const xhrLocation = new XMLHttpRequest();
 const place = document.getElementById('place');
 const temp = document.getElementById('temperature');
 const lat = document.querySelector('input[name="lat"]');
 const lon = document.querySelector('input[name="lon"]');
 const submitBtn = document.querySelector('button[name="submit"]');
+let cities = {
+    kr: "Seoul",
+    jp: "Tokyo",
+    hn: "Hanoi",
+    fr: "France",
+    en: "London"
+};
+
+let cityHtml = {};
+
+function updateSwiperHtml () {
+    // document.querySelector('#place').innerHTML = Object.values(cityHtml).join("");
+
+    if (window.__slider) {
+        window.__slider.removeAllSlides();
+        window.__slider.appendSlide(
+            Object.values(cityHtml).join("")
+        );
+    }
+}
 
 
-
-submitBtn.addEventListener('click', function () {
-    fetchWeather();
-
-})
-
-function fetchWeather() {
-
-    fetchLocation();
-    xhrWeather.open("GET", "https://api.openweathermap.org/data/2.5/weather?lat="+lat.value+"&lon="+lon.value+"&appid=65e6acbd89514013ffb82d788984105c");
+function fetchWeather(cityCode, lat, lon, name) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=492affbc537e0f6baa81e611ad2c03bf");
     
-    xhrWeather.onreadystatechange = function () {
-        if (xhrWeather.readyState === 4) {
-            if (xhrWeather.status === 200) {
+    xhr.onreadystatechange = function () {
+        console.log(xhr.readyState, xhr.status);
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
                 console.log("Request weather API succesfully!!!");
-                let listInfo = JSON.parse(xhrWeather.responseText);
+                let listInfo = JSON.parse(xhr.responseText);
                 console.log(listInfo)
-                let location = `${listInfo.name}`
                 let celcius = `${(listInfo.main.feels_like - 273.15).toFixed(1)}`;
-                place.innerHTML = `${location}`;
-                temp.innerHTML = `${celcius}°C`;
+                cityHtml[cityCode] = `
+                    <div class="swiper-slide">
+                        <div class="screen">
+                            <div class="inner">
+                                <span>${name}</span>
+                                <span>${celcius}°C</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                updateSwiperHtml();
             } else {
                 console.log("Error");
             }
         }
-    }
-    
-    xhrWeather.send();
-}
 
-function fetchLocation() {
-    const city1 = 'Hanoi';
-    const city2 = 'Ho_Chi_Minh';
-    const city3 = 'Canada';
-    xhrLocation.open("GET", "http://api.openweathermap.org/geo/1.0/direct?q="+city1+"&limit=1&appid=65e6acbd89514013ffb82d788984105c");
+        
+    }
+    xhr.send();
+};
+
+function weatherIn() {
+    const xhrLocation = []; 
     
-    xhrLocation.onreadystatechange = function () {
-        if (xhrLocation.readyState === 4) {
-            if (xhrLocation.status === 200) {
-                console.log("Request location API succesfully!!!");
-                let listInfo = JSON.parse(xhrLocation.responseText);
-                for (let i in listInfo) {
-                    let feature = listInfo[i]
-                    // console.log(feature)
+    for (let i in cities) {
+        xhrLocation[i] = new XMLHttpRequest();
+        xhrLocation[i].open("GET", "http://api.openweathermap.org/geo/1.0/direct?q="+cities[i]+"&limit=1&appid=492affbc537e0f6baa81e611ad2c03bf");
+        
+        xhrLocation[i].onreadystatechange = function () {
+            if (xhrLocation[i].readyState === 4) {
+                if (xhrLocation[i].status === 200) {
+                    console.log("Request location API succesfully!!!");
+                    let listInfo = JSON.parse(xhrLocation[i].responseText);
+                    fetchWeather(i, listInfo[0].lat, listInfo[0].lon, listInfo[0].local_names.vi);
+                    console.log(listInfo[0].local_names.vi)
+                } else {
+                    console.log("Error");
                 }
-                getLocation(listInfo);
-            } else {
-                console.log("Error");
             }
         }
+        
+        xhrLocation[i].send();
     }
-    
-    xhrLocation.send();
 }
 
-function getLocation(list) {
-    return list.map((location) => {
-        location;
-    })
+const list = document.getElementById('test');
+
+async function getLocation() {
+    const response = []
+    for (let i in cities) {
+        const res = await fetch("http://api.openweathermap.org/geo/1.0/direct?q="+cities[i]+"&limit=1&appid=492affbc537e0f6baa81e611ad2c03bf")
+        response.push(await res);
+            res.json().then(data => {
+                    const info = data[0];
+                    // list.innerHTML += `<li>${info}</li>`
+                    console.log(info.lat + ' <- this is lat')
+                    console.log(info.lon + ' <- this is lon')
+            })
+            .catch(err => {
+                console.log('Error :-S', err)
+            });
+    }
 }
 
-fetchLocation()
-getLocation();
-// console.log(location)
+getLocation()
+
+// weatherIn()
+
+
 
 
 
